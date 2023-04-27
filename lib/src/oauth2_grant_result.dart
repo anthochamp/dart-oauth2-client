@@ -1,4 +1,5 @@
 import 'package:anthochamp_dart_essentials/dart_essentials.dart';
+
 import 'package:oauth2_client/src/oauth2_exceptions.dart';
 import 'package:oauth2_client/src/oauth2_typedefs.dart';
 

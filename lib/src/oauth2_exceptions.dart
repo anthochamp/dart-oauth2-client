@@ -1,4 +1,5 @@
 import 'package:anthochamp_dart_essentials/dart_essentials.dart';
+
 import 'package:oauth2_client/src/oauth2_protocol_error.dart';
 
 class OAuth2StateMismatchException implements Exception {}
