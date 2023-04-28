@@ -1,51 +1,66 @@
+// Copyright 2023, Anthony Champagne. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:anthochamp_dart_essentials/dart_essentials.dart';
+import 'package:ac_dart_essentials/ac_dart_essentials.dart';
 
-import 'package:oauth2_client/src/oauth2_credentials.dart';
-import 'package:oauth2_client/src/oauth2_exceptions.dart';
-import 'package:oauth2_client/src/oauth2_grant_result.dart';
-import 'package:oauth2_client/src/oauth2_handlers.dart';
-import 'package:oauth2_client/src/oauth2_protocol_error.dart';
-import 'package:oauth2_client/src/oauth2_state.dart';
-import 'package:oauth2_client/src/oauth2_typedefs.dart';
-
-const kOAuth2DefaultScopesGlue = ' ';
-const kOAuth2DefaultResponseTypesGlue = ' ';
+import 'exceptions/oauth2_invalid_data_exception.dart';
+import 'exceptions/oauth2_protocol_error_exception.dart';
+import 'exceptions/oauth2_state_mismatch_exception.dart';
+import 'grant_result/oauth2_authorization_code_grant_result.dart';
+import 'grant_result/oauth2_implicit_grant_result.dart';
+import 'grant_result/oauth2_token_grant_result.dart';
+import 'oauth2_client_authentication.dart';
+import 'oauth2_client_credentials.dart';
+import 'oauth2_http_request_handler.dart';
+import 'oauth2_http_response.dart';
+import 'oauth2_protocol_error.dart';
+import 'oauth2_state.dart';
+import 'oauth2_typedefs.dart';
 
 class OAuth2Client {
+  static const kDefaultScopesGlue = ' ';
+  static const kDefaultResponseTypesGlue = ' ';
+
   // https://www.rfc-editor.org/rfc/rfc6749#section-4.1.1
-  static Future<OAuth2AuthorizationCodeGrantResult?> authorizationCodeGrant({
-    required OAuth2AuthorizationRequestHandler requestHandler,
+  static Uri composeAuthorizationCodeGrantUrl({
     required Uri authorizationEndpoint,
     required OAuth2ClientCredentialsIdentifier clientCredentialsIdentifier,
-    required OAuth2State? state,
+    OAuth2State? state,
     Uri? redirectUri,
     Iterable<OAuth2Scope>? scopes,
     OAuth2Parameters customParameters = const {},
     bool ignoreUnsecureCredentials = true,
-    String responseTypesGlue = kOAuth2DefaultResponseTypesGlue,
-    String scopesGlue = kOAuth2DefaultScopesGlue,
-  }) async {
-    final result = await _authorizationRequest(
-      requestHandler: requestHandler,
-      authorizationEndpoint: authorizationEndpoint,
-      clientCredentialsIdentifier: clientCredentialsIdentifier,
-      state: state,
-      responseTypes: ['code'],
-      responseTypesGlue: responseTypesGlue,
-      redirectUri: redirectUri,
-      scopes: scopes,
-      scopesGlue: scopesGlue,
-      customParameters: customParameters,
-      ignoreUnsecureCredentials: ignoreUnsecureCredentials,
-    );
+    String responseTypesGlue = kDefaultResponseTypesGlue,
+    String scopesGlue = kDefaultScopesGlue,
+  }) =>
+      _composeAuthorizationUrl(
+        authorizationEndpoint: authorizationEndpoint,
+        clientCredentialsIdentifier: clientCredentialsIdentifier,
+        state: state,
+        responseTypes: ['code'],
+        responseTypesGlue: responseTypesGlue,
+        redirectUri: redirectUri,
+        scopes: scopes,
+        scopesGlue: scopesGlue,
+        customParameters: customParameters,
+        ignoreUnsecureCredentials: ignoreUnsecureCredentials,
+      );
 
-    if (result == null) {
-      return null;
-    }
+  // https://www.rfc-editor.org/rfc/rfc6749#section-4.1.1
+  static OAuth2AuthorizationCodeGrantResult
+      parseAuthorizationCodeGrantRedirectionUri({
+    required Uri redirectionUri,
+    required OAuth2State? state,
+  }) {
+    final result = _parseAuthorizationRedirectionUri(
+      redirectionUri: redirectionUri,
+      state: state,
+    );
 
     return OAuth2AuthorizationCodeGrantResult.fromJson(result);
   }
@@ -59,7 +74,7 @@ class OAuth2Client {
     required OAuth2AuthorizationCode authorizationCode,
     required Uri? originalRedirectUri,
     OAuth2Parameters customParameters = const {},
-    String scopesGlue = kOAuth2DefaultScopesGlue,
+    String scopesGlue = kDefaultScopesGlue,
   }) =>
       _tokenRequest(
         requestHandler: requestHandler,
@@ -76,37 +91,44 @@ class OAuth2Client {
       );
 
   // https://www.rfc-editor.org/rfc/rfc6749#section-4.2.1
-  static Future<OAuth2ImplicitGrantResult?> implicitGrant({
-    required OAuth2AuthorizationRequestHandler requestHandler,
+  static Uri composeImplicitGrantUrl({
     required Uri authorizationEndpoint,
     required OAuth2ClientCredentialsIdentifier clientCredentialsIdentifier,
-    required OAuth2State? state,
+    OAuth2State? state,
     Uri? redirectUri,
     Iterable<OAuth2Scope>? scopes,
     OAuth2Parameters customParameters = const {},
     bool ignoreUnsecureCredentials = true,
-    String responseTypesGlue = kOAuth2DefaultResponseTypesGlue,
-    String scopesGlue = kOAuth2DefaultScopesGlue,
-  }) async {
-    final result = await _authorizationRequest(
-      requestHandler: requestHandler,
-      authorizationEndpoint: authorizationEndpoint,
-      clientCredentialsIdentifier: clientCredentialsIdentifier,
+    String responseTypesGlue = kDefaultResponseTypesGlue,
+    String scopesGlue = kDefaultScopesGlue,
+  }) =>
+      _composeAuthorizationUrl(
+        authorizationEndpoint: authorizationEndpoint,
+        clientCredentialsIdentifier: clientCredentialsIdentifier,
+        state: state,
+        responseTypes: ['token'],
+        responseTypesGlue: responseTypesGlue,
+        redirectUri: redirectUri,
+        scopes: scopes,
+        scopesGlue: scopesGlue,
+        customParameters: customParameters,
+        ignoreUnsecureCredentials: ignoreUnsecureCredentials,
+      );
+
+  static OAuth2ImplicitGrantResult parseImplicitGrantRedirectionUri({
+    required Uri redirectionUri,
+    required OAuth2State? state,
+    String scopesGlue = kDefaultScopesGlue,
+  }) {
+    final result = _parseAuthorizationRedirectionUri(
+      redirectionUri: redirectionUri,
       state: state,
-      responseTypes: ['token'],
-      responseTypesGlue: responseTypesGlue,
-      redirectUri: redirectUri,
-      scopes: scopes,
-      scopesGlue: scopesGlue,
-      customParameters: customParameters,
-      ignoreUnsecureCredentials: ignoreUnsecureCredentials,
     );
 
-    if (result == null) {
-      return null;
-    }
-
-    return OAuth2ImplicitGrantResult.fromJson(result, scopesGlue: scopesGlue);
+    return OAuth2ImplicitGrantResult.fromJson(
+      result,
+      scopesGlue: scopesGlue,
+    );
   }
 
   // https://www.rfc-editor.org/rfc/rfc6749#section-4.3
@@ -115,7 +137,7 @@ class OAuth2Client {
     required Uri tokenEndpoint,
     required OAuth2ClientCredentialsUserPass clientCredentialsUserPass,
     Iterable<OAuth2Scope>? scopes,
-    String scopesGlue = kOAuth2DefaultScopesGlue,
+    String scopesGlue = kDefaultScopesGlue,
     OAuth2Parameters customParameters = const {},
   }) =>
       _tokenRequest(
@@ -136,7 +158,7 @@ class OAuth2Client {
     required Uri tokenEndpoint,
     required OAuth2ClientCredentials clientCredentials,
     Iterable<OAuth2Scope>? scopes,
-    String scopesGlue = kOAuth2DefaultScopesGlue,
+    String scopesGlue = kDefaultScopesGlue,
     OAuth2Parameters customParameters = const {},
   }) =>
       _tokenRequest(
@@ -158,7 +180,7 @@ class OAuth2Client {
     required OAuth2ClientCredentials? clientCredentials,
     required Uri grantType,
     OAuth2Parameters customParameters = const {},
-    String scopesGlue = kOAuth2DefaultScopesGlue,
+    String scopesGlue = kDefaultScopesGlue,
   }) =>
       _tokenRequest(
         requestHandler: requestHandler,
@@ -176,7 +198,7 @@ class OAuth2Client {
     required OAuth2ClientCredentials? clientCredentials,
     required String refreshToken,
     Iterable<OAuth2Scope>? scopes,
-    String scopesGlue = kOAuth2DefaultScopesGlue,
+    String scopesGlue = kDefaultScopesGlue,
     OAuth2Parameters customParameters = const {},
   }) =>
       _tokenRequest(
@@ -234,13 +256,15 @@ class OAuth2Client {
       },
     );
 
-    if (response.payload == null) {
+    if (response.formData == null) {
       throw OAuth2InvalidDataException(
-          'No payload in response from "$tokenEndpoint"', response);
+        'No payload in response from "$tokenEndpoint"',
+        response,
+      );
     }
 
     return OAuth2TokenGrantResult.fromJson(
-      response.payload!,
+      response.formData!,
       scopesGlue: scopesGlue,
     );
   }
@@ -251,14 +275,6 @@ class OAuth2Client {
     required OAuth2ClientCredentials? clientCredentials,
     required OAuth2Parameters parameters,
   }) async {
-    final payload = {
-      ...clientCredentials?.composeParameters(
-            ignoreUnsecureCredentials: false,
-          ) ??
-          {},
-      ...parameters,
-    };
-
     final httpHeaders = {
       HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded',
       HttpHeaders.acceptHeader: 'application/x-www-form-urlencoded',
@@ -280,18 +296,23 @@ class OAuth2Client {
       }
     }
 
-    final response = await requestHandler.request(
-      'POST',
+    final response = await requestHandler.post(
       requestEndpoint,
       httpHeaders,
-      payload,
+      {
+        ...clientCredentials?.composeParameters(
+              ignoreUnsecureCredentials: false,
+            ) ??
+            {},
+        ...parameters,
+      },
     );
 
     // ignore: no-magic-number
     if (response.status < 200 || response.status >= 300) {
       OAuth2ProtocolError? protocolError;
       try {
-        protocolError = OAuth2ProtocolError.fromJson(response.payload!);
+        protocolError = OAuth2ProtocolError.fromJson(response.formData!);
       } catch (_) {}
 
       if (protocolError == null) {
@@ -314,9 +335,7 @@ class OAuth2Client {
   }
 
   // https://www.rfc-editor.org/rfc/rfc6749#section-4.1.2
-  // https://www.rfc-editor.org/rfc/rfc6749#section-4.2.2
-  static Future<OAuth2Parameters?> _authorizationRequest({
-    required OAuth2AuthorizationRequestHandler requestHandler,
+  static Uri _composeAuthorizationUrl({
     required Uri authorizationEndpoint,
     required OAuth2ClientCredentialsIdentifier clientCredentialsIdentifier,
     required OAuth2State? state,
@@ -327,28 +346,28 @@ class OAuth2Client {
     required String scopesGlue,
     required OAuth2Parameters customParameters,
     required bool ignoreUnsecureCredentials,
-  }) async {
-    final url = authorizationEndpoint.replace(
-      queryParameters: <String, String?>{
-        ...authorizationEndpoint.queryParameters,
-        ...customParameters,
-        ...clientCredentialsIdentifier.composeParameters(
-          ignoreUnsecureCredentials: ignoreUnsecureCredentials,
-        ),
-        'response_type': responseTypes.join(responseTypesGlue),
-        if (redirectUri != null) 'redirect_uri': redirectUri.toString(),
-        if (scopes != null) 'scope': scopes.join(scopesGlue),
-        if (state != null) 'state': state.value,
-      },
-    );
+  }) =>
+      authorizationEndpoint.replace(
+        queryParameters: <String, String?>{
+          ...authorizationEndpoint.queryParameters,
+          ...customParameters,
+          ...clientCredentialsIdentifier.composeParameters(
+            ignoreUnsecureCredentials: ignoreUnsecureCredentials,
+          ),
+          'response_type': responseTypes.join(responseTypesGlue),
+          if (redirectUri != null) 'redirect_uri': redirectUri.toString(),
+          if (scopes != null) 'scope': scopes.join(scopesGlue),
+          if (state != null) 'state': state.value,
+        },
+      );
 
-    final redirectedUri = await requestHandler.request(url);
-    if (redirectedUri == null) {
-      return null;
-    }
-
+  // https://www.rfc-editor.org/rfc/rfc6749#section-4.2.2
+  static OAuth2Parameters _parseAuthorizationRedirectionUri({
+    required Uri redirectionUri,
+    required OAuth2State? state,
+  }) {
     final OAuth2Parameters parameters = {}
-      ..addAll(redirectedUri.queryParameters);
+      ..addAll(redirectionUri.queryParameters);
 
     final receivedState = parameters.remove('state');
     if (receivedState != state?.value) {

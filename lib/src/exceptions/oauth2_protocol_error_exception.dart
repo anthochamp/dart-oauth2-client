@@ -1,12 +1,10 @@
-import 'package:anthochamp_dart_essentials/dart_essentials.dart';
+// Copyright 2023, Anthony Champagne. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
-import 'package:oauth2_client/src/oauth2_protocol_error.dart';
+import 'package:ac_dart_essentials/ac_dart_essentials.dart';
 
-class OAuth2StateMismatchException implements Exception {}
-
-class OAuth2InvalidDataException extends InvalidDataException {
-  OAuth2InvalidDataException(super.message, super.source);
-}
+import '../oauth2_protocol_error.dart';
 
 class OAuth2ProtocolErrorException extends HttpStatusException {
   final OAuth2ProtocolError protocolError;
