@@ -44,7 +44,6 @@ class MyHttpRequestHandler
 
     return OAuth2HttpResponse(
         status: response.statusCode,
-        statusText: response.reasonPhrase,
         formData: Uri.splitQueryString(response.body),
     );
   }
@@ -71,7 +70,6 @@ class MyHttpRequestHandler
 
     return OAuth2HttpResponse(
         status: response.status,
-        statusText: response.statusText,
         formData: response.ok
             ? await response.waitStructuredData()
             : null,

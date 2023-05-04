@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+export 'src/exceptions/oauth2_http_exception.dart';
 export 'src/exceptions/oauth2_invalid_data_exception.dart';
 export 'src/exceptions/oauth2_protocol_error_exception.dart';
 export 'src/exceptions/oauth2_state_mismatch_exception.dart';

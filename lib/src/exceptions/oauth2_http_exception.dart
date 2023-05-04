@@ -2,12 +2,15 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-class OAuth2HttpResponse {
+class OAuth2HttpException implements Exception {
   final int status;
-  final Map<String, String>? formData;
+  final Uri url;
 
-  OAuth2HttpResponse({
+  OAuth2HttpException({
     required this.status,
-    this.formData,
+    required this.url,
   });
+
+  @override
+  String toString() => 'OAuth2HttpException: status=$status, url=$url';
 }

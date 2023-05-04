@@ -4,10 +4,8 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:ac_dart_essentials/ac_dart_essentials.dart';
-
+import 'exceptions/oauth2_http_exception.dart';
 import 'exceptions/oauth2_invalid_data_exception.dart';
 import 'exceptions/oauth2_protocol_error_exception.dart';
 import 'exceptions/oauth2_state_mismatch_exception.dart';
@@ -276,8 +274,8 @@ class OAuth2Client {
     required OAuth2Parameters parameters,
   }) async {
     final httpHeaders = {
-      HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded',
-      HttpHeaders.acceptHeader: 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': 'application/x-www-form-urlencoded',
     };
 
     if (clientCredentials is OAuth2ClientCredentialsIdentifier) {
@@ -291,7 +289,7 @@ class OAuth2Client {
               .password,
         );
 
-        httpHeaders[HttpHeaders.authorizationHeader] =
+        httpHeaders['Authorization'] =
             'Basic ${base64Encode('$encodedClientId:$encodedPassword'.codeUnits)}';
       }
     }
@@ -316,16 +314,14 @@ class OAuth2Client {
       } catch (_) {}
 
       if (protocolError == null) {
-        throw HttpStatusException(
+        throw OAuth2HttpException(
           status: response.status,
-          statusText: response.statusText,
           url: requestEndpoint,
         );
       }
 
       throw OAuth2ProtocolErrorException(
         status: response.status,
-        statusText: response.statusText,
         url: requestEndpoint,
         protocolError: protocolError,
       );
