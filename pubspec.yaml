@@ -1,6 +1,6 @@
 name: ac_oauth2_client
 description: An unopinionated RFC-compliant OAuth 2.0 client which doesn't make assumption on anything
-version: 0.2.0
+version: 0.2.1
 repository: https://github.com/anthochamp/dart-oauth2-client
 
 environment:
