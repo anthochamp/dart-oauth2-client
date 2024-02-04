@@ -89,6 +89,6 @@ class OAuth2TokenGrantResult {
         'token_type': tokenType,
         'refresh_token': refreshToken,
         'expires_in': expiresIn?.inSeconds,
-        'scope': scopes == null ? null : scopes!.join(scopesGlue),
+        'scope': scopes?.join(scopesGlue),
       };
 }
