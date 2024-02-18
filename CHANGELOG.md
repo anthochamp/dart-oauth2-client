@@ -1,3 +1,9 @@
+## 0.2.2
+
+- Upgrade json_serializable/json_annotation packages
+- Upgrade freezed/freezed_annotation packages (lint generated files)
+- Upgrade ac_lints package to 0.3.0
+
 ## 0.2.1
 
 - Update LICENSE's copyright to include contributors and use SPDX file header

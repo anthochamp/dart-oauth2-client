@@ -12,7 +12,7 @@ part of 'oauth2_client_authentication.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$OAuth2ClientAuthentication {
@@ -78,23 +78,23 @@ class _$OAuth2ClientAuthenticationCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$OAuth2ClientAuthenticationSecretCopyWith<$Res> {
-  factory _$$OAuth2ClientAuthenticationSecretCopyWith(
-          _$OAuth2ClientAuthenticationSecret value,
-          $Res Function(_$OAuth2ClientAuthenticationSecret) then) =
-      __$$OAuth2ClientAuthenticationSecretCopyWithImpl<$Res>;
+abstract class _$$OAuth2ClientAuthenticationSecretImplCopyWith<$Res> {
+  factory _$$OAuth2ClientAuthenticationSecretImplCopyWith(
+          _$OAuth2ClientAuthenticationSecretImpl value,
+          $Res Function(_$OAuth2ClientAuthenticationSecretImpl) then) =
+      __$$OAuth2ClientAuthenticationSecretImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String secret});
 }
 
 /// @nodoc
-class __$$OAuth2ClientAuthenticationSecretCopyWithImpl<$Res>
+class __$$OAuth2ClientAuthenticationSecretImplCopyWithImpl<$Res>
     extends _$OAuth2ClientAuthenticationCopyWithImpl<$Res,
-        _$OAuth2ClientAuthenticationSecret>
-    implements _$$OAuth2ClientAuthenticationSecretCopyWith<$Res> {
-  __$$OAuth2ClientAuthenticationSecretCopyWithImpl(
-      _$OAuth2ClientAuthenticationSecret _value,
-      $Res Function(_$OAuth2ClientAuthenticationSecret) _then)
+        _$OAuth2ClientAuthenticationSecretImpl>
+    implements _$$OAuth2ClientAuthenticationSecretImplCopyWith<$Res> {
+  __$$OAuth2ClientAuthenticationSecretImplCopyWithImpl(
+      _$OAuth2ClientAuthenticationSecretImpl _value,
+      $Res Function(_$OAuth2ClientAuthenticationSecretImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -102,7 +102,7 @@ class __$$OAuth2ClientAuthenticationSecretCopyWithImpl<$Res>
   $Res call({
     Object? secret = null,
   }) {
-    return _then(_$OAuth2ClientAuthenticationSecret(
+    return _then(_$OAuth2ClientAuthenticationSecretImpl(
       secret: null == secret
           ? _value.secret
           : secret // ignore: cast_nullable_to_non_nullable
@@ -113,9 +113,9 @@ class __$$OAuth2ClientAuthenticationSecretCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$OAuth2ClientAuthenticationSecret
+class _$OAuth2ClientAuthenticationSecretImpl
     implements OAuth2ClientAuthenticationSecret {
-  const _$OAuth2ClientAuthenticationSecret({required this.secret});
+  const _$OAuth2ClientAuthenticationSecretImpl({required this.secret});
 
   @override
   final String secret;
@@ -126,10 +126,10 @@ class _$OAuth2ClientAuthenticationSecret
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$OAuth2ClientAuthenticationSecret &&
+            other is _$OAuth2ClientAuthenticationSecretImpl &&
             (identical(other.secret, secret) || other.secret == secret));
   }
 
@@ -139,10 +139,10 @@ class _$OAuth2ClientAuthenticationSecret
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$OAuth2ClientAuthenticationSecretCopyWith<
-          _$OAuth2ClientAuthenticationSecret>
-      get copyWith => __$$OAuth2ClientAuthenticationSecretCopyWithImpl<
-          _$OAuth2ClientAuthenticationSecret>(this, _$identity);
+  _$$OAuth2ClientAuthenticationSecretImplCopyWith<
+          _$OAuth2ClientAuthenticationSecretImpl>
+      get copyWith => __$$OAuth2ClientAuthenticationSecretImplCopyWithImpl<
+          _$OAuth2ClientAuthenticationSecretImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -211,33 +211,33 @@ class _$OAuth2ClientAuthenticationSecret
 abstract class OAuth2ClientAuthenticationSecret
     implements OAuth2ClientAuthentication {
   const factory OAuth2ClientAuthenticationSecret(
-      {required final String secret}) = _$OAuth2ClientAuthenticationSecret;
+      {required final String secret}) = _$OAuth2ClientAuthenticationSecretImpl;
 
   String get secret;
   @JsonKey(ignore: true)
-  _$$OAuth2ClientAuthenticationSecretCopyWith<
-          _$OAuth2ClientAuthenticationSecret>
+  _$$OAuth2ClientAuthenticationSecretImplCopyWith<
+          _$OAuth2ClientAuthenticationSecretImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$OAuth2ClientAuthenticationPasswordCopyWith<$Res> {
-  factory _$$OAuth2ClientAuthenticationPasswordCopyWith(
-          _$OAuth2ClientAuthenticationPassword value,
-          $Res Function(_$OAuth2ClientAuthenticationPassword) then) =
-      __$$OAuth2ClientAuthenticationPasswordCopyWithImpl<$Res>;
+abstract class _$$OAuth2ClientAuthenticationPasswordImplCopyWith<$Res> {
+  factory _$$OAuth2ClientAuthenticationPasswordImplCopyWith(
+          _$OAuth2ClientAuthenticationPasswordImpl value,
+          $Res Function(_$OAuth2ClientAuthenticationPasswordImpl) then) =
+      __$$OAuth2ClientAuthenticationPasswordImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String password});
 }
 
 /// @nodoc
-class __$$OAuth2ClientAuthenticationPasswordCopyWithImpl<$Res>
+class __$$OAuth2ClientAuthenticationPasswordImplCopyWithImpl<$Res>
     extends _$OAuth2ClientAuthenticationCopyWithImpl<$Res,
-        _$OAuth2ClientAuthenticationPassword>
-    implements _$$OAuth2ClientAuthenticationPasswordCopyWith<$Res> {
-  __$$OAuth2ClientAuthenticationPasswordCopyWithImpl(
-      _$OAuth2ClientAuthenticationPassword _value,
-      $Res Function(_$OAuth2ClientAuthenticationPassword) _then)
+        _$OAuth2ClientAuthenticationPasswordImpl>
+    implements _$$OAuth2ClientAuthenticationPasswordImplCopyWith<$Res> {
+  __$$OAuth2ClientAuthenticationPasswordImplCopyWithImpl(
+      _$OAuth2ClientAuthenticationPasswordImpl _value,
+      $Res Function(_$OAuth2ClientAuthenticationPasswordImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -245,7 +245,7 @@ class __$$OAuth2ClientAuthenticationPasswordCopyWithImpl<$Res>
   $Res call({
     Object? password = null,
   }) {
-    return _then(_$OAuth2ClientAuthenticationPassword(
+    return _then(_$OAuth2ClientAuthenticationPasswordImpl(
       password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
@@ -256,9 +256,9 @@ class __$$OAuth2ClientAuthenticationPasswordCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$OAuth2ClientAuthenticationPassword
+class _$OAuth2ClientAuthenticationPasswordImpl
     implements OAuth2ClientAuthenticationPassword {
-  const _$OAuth2ClientAuthenticationPassword({required this.password});
+  const _$OAuth2ClientAuthenticationPasswordImpl({required this.password});
 
   @override
   final String password;
@@ -269,10 +269,10 @@ class _$OAuth2ClientAuthenticationPassword
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$OAuth2ClientAuthenticationPassword &&
+            other is _$OAuth2ClientAuthenticationPasswordImpl &&
             (identical(other.password, password) ||
                 other.password == password));
   }
@@ -283,10 +283,10 @@ class _$OAuth2ClientAuthenticationPassword
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$OAuth2ClientAuthenticationPasswordCopyWith<
-          _$OAuth2ClientAuthenticationPassword>
-      get copyWith => __$$OAuth2ClientAuthenticationPasswordCopyWithImpl<
-          _$OAuth2ClientAuthenticationPassword>(this, _$identity);
+  _$$OAuth2ClientAuthenticationPasswordImplCopyWith<
+          _$OAuth2ClientAuthenticationPasswordImpl>
+      get copyWith => __$$OAuth2ClientAuthenticationPasswordImplCopyWithImpl<
+          _$OAuth2ClientAuthenticationPasswordImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -355,11 +355,12 @@ class _$OAuth2ClientAuthenticationPassword
 abstract class OAuth2ClientAuthenticationPassword
     implements OAuth2ClientAuthentication {
   const factory OAuth2ClientAuthenticationPassword(
-      {required final String password}) = _$OAuth2ClientAuthenticationPassword;
+          {required final String password}) =
+      _$OAuth2ClientAuthenticationPasswordImpl;
 
   String get password;
   @JsonKey(ignore: true)
-  _$$OAuth2ClientAuthenticationPasswordCopyWith<
-          _$OAuth2ClientAuthenticationPassword>
+  _$$OAuth2ClientAuthenticationPasswordImplCopyWith<
+          _$OAuth2ClientAuthenticationPasswordImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

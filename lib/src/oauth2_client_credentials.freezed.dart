@@ -12,7 +12,7 @@ part of 'oauth2_client_credentials.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$OAuth2ClientCredentials {
@@ -89,11 +89,11 @@ class _$OAuth2ClientCredentialsCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$OAuth2ClientCredentialsIdentifierCopyWith<$Res> {
-  factory _$$OAuth2ClientCredentialsIdentifierCopyWith(
-          _$OAuth2ClientCredentialsIdentifier value,
-          $Res Function(_$OAuth2ClientCredentialsIdentifier) then) =
-      __$$OAuth2ClientCredentialsIdentifierCopyWithImpl<$Res>;
+abstract class _$$OAuth2ClientCredentialsIdentifierImplCopyWith<$Res> {
+  factory _$$OAuth2ClientCredentialsIdentifierImplCopyWith(
+          _$OAuth2ClientCredentialsIdentifierImpl value,
+          $Res Function(_$OAuth2ClientCredentialsIdentifierImpl) then) =
+      __$$OAuth2ClientCredentialsIdentifierImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String identifier, OAuth2ClientAuthentication? authentication});
 
@@ -101,13 +101,13 @@ abstract class _$$OAuth2ClientCredentialsIdentifierCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$OAuth2ClientCredentialsIdentifierCopyWithImpl<$Res>
+class __$$OAuth2ClientCredentialsIdentifierImplCopyWithImpl<$Res>
     extends _$OAuth2ClientCredentialsCopyWithImpl<$Res,
-        _$OAuth2ClientCredentialsIdentifier>
-    implements _$$OAuth2ClientCredentialsIdentifierCopyWith<$Res> {
-  __$$OAuth2ClientCredentialsIdentifierCopyWithImpl(
-      _$OAuth2ClientCredentialsIdentifier _value,
-      $Res Function(_$OAuth2ClientCredentialsIdentifier) _then)
+        _$OAuth2ClientCredentialsIdentifierImpl>
+    implements _$$OAuth2ClientCredentialsIdentifierImplCopyWith<$Res> {
+  __$$OAuth2ClientCredentialsIdentifierImplCopyWithImpl(
+      _$OAuth2ClientCredentialsIdentifierImpl _value,
+      $Res Function(_$OAuth2ClientCredentialsIdentifierImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -116,7 +116,7 @@ class __$$OAuth2ClientCredentialsIdentifierCopyWithImpl<$Res>
     Object? identifier = null,
     Object? authentication = freezed,
   }) {
-    return _then(_$OAuth2ClientCredentialsIdentifier(
+    return _then(_$OAuth2ClientCredentialsIdentifierImpl(
       identifier: null == identifier
           ? _value.identifier
           : identifier // ignore: cast_nullable_to_non_nullable
@@ -144,9 +144,9 @@ class __$$OAuth2ClientCredentialsIdentifierCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$OAuth2ClientCredentialsIdentifier
+class _$OAuth2ClientCredentialsIdentifierImpl
     extends OAuth2ClientCredentialsIdentifier {
-  const _$OAuth2ClientCredentialsIdentifier(
+  const _$OAuth2ClientCredentialsIdentifierImpl(
       {required this.identifier, this.authentication})
       : super._();
 
@@ -161,10 +161,10 @@ class _$OAuth2ClientCredentialsIdentifier
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$OAuth2ClientCredentialsIdentifier &&
+            other is _$OAuth2ClientCredentialsIdentifierImpl &&
             (identical(other.identifier, identifier) ||
                 other.identifier == identifier) &&
             (identical(other.authentication, authentication) ||
@@ -177,10 +177,10 @@ class _$OAuth2ClientCredentialsIdentifier
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$OAuth2ClientCredentialsIdentifierCopyWith<
-          _$OAuth2ClientCredentialsIdentifier>
-      get copyWith => __$$OAuth2ClientCredentialsIdentifierCopyWithImpl<
-          _$OAuth2ClientCredentialsIdentifier>(this, _$identity);
+  _$$OAuth2ClientCredentialsIdentifierImplCopyWith<
+          _$OAuth2ClientCredentialsIdentifierImpl>
+      get copyWith => __$$OAuth2ClientCredentialsIdentifierImplCopyWithImpl<
+          _$OAuth2ClientCredentialsIdentifierImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -263,23 +263,23 @@ abstract class OAuth2ClientCredentialsIdentifier
   const factory OAuth2ClientCredentialsIdentifier(
           {required final String identifier,
           final OAuth2ClientAuthentication? authentication}) =
-      _$OAuth2ClientCredentialsIdentifier;
+      _$OAuth2ClientCredentialsIdentifierImpl;
   const OAuth2ClientCredentialsIdentifier._() : super._();
 
   String get identifier;
   OAuth2ClientAuthentication? get authentication;
   @JsonKey(ignore: true)
-  _$$OAuth2ClientCredentialsIdentifierCopyWith<
-          _$OAuth2ClientCredentialsIdentifier>
+  _$$OAuth2ClientCredentialsIdentifierImplCopyWith<
+          _$OAuth2ClientCredentialsIdentifierImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$OAuth2ClientCredentialsUserPassCopyWith<$Res> {
-  factory _$$OAuth2ClientCredentialsUserPassCopyWith(
-          _$OAuth2ClientCredentialsUserPass value,
-          $Res Function(_$OAuth2ClientCredentialsUserPass) then) =
-      __$$OAuth2ClientCredentialsUserPassCopyWithImpl<$Res>;
+abstract class _$$OAuth2ClientCredentialsUserPassImplCopyWith<$Res> {
+  factory _$$OAuth2ClientCredentialsUserPassImplCopyWith(
+          _$OAuth2ClientCredentialsUserPassImpl value,
+          $Res Function(_$OAuth2ClientCredentialsUserPassImpl) then) =
+      __$$OAuth2ClientCredentialsUserPassImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {String username,
@@ -287,13 +287,13 @@ abstract class _$$OAuth2ClientCredentialsUserPassCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$OAuth2ClientCredentialsUserPassCopyWithImpl<$Res>
+class __$$OAuth2ClientCredentialsUserPassImplCopyWithImpl<$Res>
     extends _$OAuth2ClientCredentialsCopyWithImpl<$Res,
-        _$OAuth2ClientCredentialsUserPass>
-    implements _$$OAuth2ClientCredentialsUserPassCopyWith<$Res> {
-  __$$OAuth2ClientCredentialsUserPassCopyWithImpl(
-      _$OAuth2ClientCredentialsUserPass _value,
-      $Res Function(_$OAuth2ClientCredentialsUserPass) _then)
+        _$OAuth2ClientCredentialsUserPassImpl>
+    implements _$$OAuth2ClientCredentialsUserPassImplCopyWith<$Res> {
+  __$$OAuth2ClientCredentialsUserPassImplCopyWithImpl(
+      _$OAuth2ClientCredentialsUserPassImpl _value,
+      $Res Function(_$OAuth2ClientCredentialsUserPassImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -302,7 +302,7 @@ class __$$OAuth2ClientCredentialsUserPassCopyWithImpl<$Res>
     Object? username = null,
     Object? authenticationPassword = freezed,
   }) {
-    return _then(_$OAuth2ClientCredentialsUserPass(
+    return _then(_$OAuth2ClientCredentialsUserPassImpl(
       username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -317,9 +317,9 @@ class __$$OAuth2ClientCredentialsUserPassCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$OAuth2ClientCredentialsUserPass
+class _$OAuth2ClientCredentialsUserPassImpl
     extends OAuth2ClientCredentialsUserPass {
-  const _$OAuth2ClientCredentialsUserPass(
+  const _$OAuth2ClientCredentialsUserPassImpl(
       {required this.username, required this.authenticationPassword})
       : super._();
 
@@ -334,10 +334,10 @@ class _$OAuth2ClientCredentialsUserPass
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$OAuth2ClientCredentialsUserPass &&
+            other is _$OAuth2ClientCredentialsUserPassImpl &&
             (identical(other.username, username) ||
                 other.username == username) &&
             const DeepCollectionEquality()
@@ -351,9 +351,10 @@ class _$OAuth2ClientCredentialsUserPass
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$OAuth2ClientCredentialsUserPassCopyWith<_$OAuth2ClientCredentialsUserPass>
-      get copyWith => __$$OAuth2ClientCredentialsUserPassCopyWithImpl<
-          _$OAuth2ClientCredentialsUserPass>(this, _$identity);
+  _$$OAuth2ClientCredentialsUserPassImplCopyWith<
+          _$OAuth2ClientCredentialsUserPassImpl>
+      get copyWith => __$$OAuth2ClientCredentialsUserPassImplCopyWithImpl<
+          _$OAuth2ClientCredentialsUserPassImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -435,12 +436,13 @@ abstract class OAuth2ClientCredentialsUserPass extends OAuth2ClientCredentials {
   const factory OAuth2ClientCredentialsUserPass(
       {required final String username,
       required final OAuth2ClientAuthenticationPassword
-          authenticationPassword}) = _$OAuth2ClientCredentialsUserPass;
+          authenticationPassword}) = _$OAuth2ClientCredentialsUserPassImpl;
   const OAuth2ClientCredentialsUserPass._() : super._();
 
   String get username;
   OAuth2ClientAuthenticationPassword get authenticationPassword;
   @JsonKey(ignore: true)
-  _$$OAuth2ClientCredentialsUserPassCopyWith<_$OAuth2ClientCredentialsUserPass>
+  _$$OAuth2ClientCredentialsUserPassImplCopyWith<
+          _$OAuth2ClientCredentialsUserPassImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
