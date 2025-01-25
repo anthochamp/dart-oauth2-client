@@ -75,6 +75,9 @@ class _$OAuth2ClientAuthenticationCopyWithImpl<$Res,
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of OAuth2ClientAuthentication
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -97,6 +100,8 @@ class __$$OAuth2ClientAuthenticationSecretImplCopyWithImpl<$Res>
       $Res Function(_$OAuth2ClientAuthenticationSecretImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of OAuth2ClientAuthentication
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -136,7 +141,9 @@ class _$OAuth2ClientAuthenticationSecretImpl
   @override
   int get hashCode => Object.hash(runtimeType, secret);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of OAuth2ClientAuthentication
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$OAuth2ClientAuthenticationSecretImplCopyWith<
@@ -214,7 +221,10 @@ abstract class OAuth2ClientAuthenticationSecret
       {required final String secret}) = _$OAuth2ClientAuthenticationSecretImpl;
 
   String get secret;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of OAuth2ClientAuthentication
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$OAuth2ClientAuthenticationSecretImplCopyWith<
           _$OAuth2ClientAuthenticationSecretImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -240,6 +250,8 @@ class __$$OAuth2ClientAuthenticationPasswordImplCopyWithImpl<$Res>
       $Res Function(_$OAuth2ClientAuthenticationPasswordImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of OAuth2ClientAuthentication
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -280,7 +292,9 @@ class _$OAuth2ClientAuthenticationPasswordImpl
   @override
   int get hashCode => Object.hash(runtimeType, password);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of OAuth2ClientAuthentication
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$OAuth2ClientAuthenticationPasswordImplCopyWith<
@@ -359,7 +373,10 @@ abstract class OAuth2ClientAuthenticationPassword
       _$OAuth2ClientAuthenticationPasswordImpl;
 
   String get password;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of OAuth2ClientAuthentication
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$OAuth2ClientAuthenticationPasswordImplCopyWith<
           _$OAuth2ClientAuthenticationPasswordImpl>
       get copyWith => throw _privateConstructorUsedError;

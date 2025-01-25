@@ -1,3 +1,9 @@
+## 0.3.0
+
+- Upgrade json_serializable/json_annotation packages
+- Upgrade freezed/freezed_annotation packages
+- Upgrade ac_lints package to 0.4.0
+
 ## 0.2.2
 
 - Upgrade json_serializable/json_annotation packages
