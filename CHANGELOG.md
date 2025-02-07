@@ -1,3 +1,5 @@
+# Changelog
+
 ## 0.3.0
 
 - Upgrade json_serializable/json_annotation packages

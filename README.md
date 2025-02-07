@@ -1,6 +1,7 @@
 # Unopinionated OAuth 2.0 client
 
-An unopinionated RFC-compliant OAuth 2.0 client which doesn't make assumption on anything.
+An unopinionated RFC-compliant OAuth 2.0 client which doesn't make assumption
+on anything.
 
 ## Features
 
@@ -15,16 +16,23 @@ What it implements :
 - Token Revocation ([RFC-7009](https://datatracker.ietf.org/doc/html/rfc7009))
 
 What it will NOT implement :
-- The actual HTTP requests to the server, although it gives you data to make requests and it transforms the responses.
-- A way to present the web page to the user and retrieve the redirection URI for the *Authorization Code Grant* and *Implicit Grant* types. You can either use a WebView (for development/debugging purpose only) or spawn an external browser to present the web page and use deep-link to retrieve the redirected URI.
+
+- The actual HTTP requests to the server, although it gives you data to make
+requests and it transforms the responses.
+- A way to present the web page to the user and retrieve the redirection URI for
+the *Authorization Code Grant* and *Implicit Grant* types. You can either use
+a WebView (for development/debugging purpose only) or spawn an external browser
+to present the web page and use deep-link to retrieve the redirected URI.
 
 ## Usage
 
-Usage description assume you have some knowledge of the OAuth 2.0 authentications flows and the data involved.
+Usage description assume you have some knowledge of the OAuth 2.0
+authentications flows and the data involved.
 
 ### HTTP request handler
 
-A typical implementation with the [http](https://pub.dev/packages/http) package will look like this :
+A typical implementation with the [http](https://pub.dev/packages/http) package
+will look like this:
 
 ```dart
 import 'package:http/http.dart' as http;
@@ -50,7 +58,7 @@ class MyHttpRequestHandler
 }
 ```
 
-or if you use the [ac_fetch](https://pub.dev/packages/ac_fetch) package :
+or if you use the [ac_fetch](https://pub.dev/packages/ac_fetch) package:
 
 ```dart
 class MyHttpRequestHandler 
@@ -78,7 +86,7 @@ class MyHttpRequestHandler
 }
 ```
 
-### Authorization Code Grant 
+### Authorization Code Grant
 
 #### Generating the authorization URL
 
