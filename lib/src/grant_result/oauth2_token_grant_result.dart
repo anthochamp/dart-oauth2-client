@@ -62,13 +62,15 @@ class OAuth2TokenGrantResult {
     Duration? expiresIn;
     if (expiresInValue != null) {
       expiresIn = Duration(
-        seconds: expiresInValue is String
-            ? int.parse(expiresInValue)
-            : expiresInValue,
+        seconds:
+            expiresInValue is String
+                ? int.parse(expiresInValue)
+                : expiresInValue,
       );
     }
-    final Iterable<OAuth2Scope>? scopes =
-        customParameters.remove('scope')?.split(scopesGlue);
+    final Iterable<OAuth2Scope>? scopes = customParameters
+        .remove('scope')
+        ?.split(scopesGlue);
 
     return OAuth2TokenGrantResult(
       accessToken: accessToken,
@@ -80,15 +82,12 @@ class OAuth2TokenGrantResult {
     );
   }
 
-  JsonObject toJson({
-    required String scopesGlue,
-  }) =>
-      <String, dynamic>{
-        ...customParameters,
-        'access_token': accessToken,
-        'token_type': tokenType,
-        'refresh_token': refreshToken,
-        'expires_in': expiresIn?.inSeconds,
-        'scope': scopes?.join(scopesGlue),
-      };
+  JsonObject toJson({required String scopesGlue}) => <String, dynamic>{
+    ...customParameters,
+    'access_token': accessToken,
+    'token_type': tokenType,
+    'refresh_token': refreshToken,
+    'expires_in': expiresIn?.inSeconds,
+    'scope': scopes?.join(scopesGlue),
+  };
 }

@@ -6,8 +6,5 @@ class OAuth2HttpResponse {
   final int status;
   final Map<String, String>? formData;
 
-  OAuth2HttpResponse({
-    required this.status,
-    this.formData,
-  });
+  OAuth2HttpResponse({required this.status, this.formData});
 }

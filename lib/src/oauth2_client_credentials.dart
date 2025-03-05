@@ -27,23 +27,30 @@ class OAuth2ClientCredentials with _$OAuth2ClientCredentials {
     required bool ignoreUnsecureCredentials,
   }) {
     return map(
-      identifier: (identifier) => {
-        'client_id': identifier.identifier,
-        if (!ignoreUnsecureCredentials)
-          ...identifier.authentication?.map(
-                secret: (authenticationSecret) =>
-                    {'client_secret': authenticationSecret.secret},
-                password: (authenticationPassword) =>
-                    {'password': authenticationPassword.password},
-              ) ??
-              {},
-      },
-      username: (username) => ignoreUnsecureCredentials
-          ? {}
-          : {
-              'username': username.username,
-              'password': username.authenticationPassword.password,
-            },
+      identifier:
+          (identifier) => {
+            'client_id': identifier.identifier,
+            if (!ignoreUnsecureCredentials)
+              ...identifier.authentication?.map(
+                    secret:
+                        (authenticationSecret) => {
+                          'client_secret': authenticationSecret.secret,
+                        },
+                    password:
+                        (authenticationPassword) => {
+                          'password': authenticationPassword.password,
+                        },
+                  ) ??
+                  {},
+          },
+      username:
+          (username) =>
+              ignoreUnsecureCredentials
+                  ? {}
+                  : {
+                    'username': username.username,
+                    'password': username.authenticationPassword.password,
+                  },
     );
   }
 }
