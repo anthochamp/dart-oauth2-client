@@ -14,7 +14,4 @@ typedef OAuth2Scope = String;
 
 typedef OAuth2Parameters = UriQueryParameters;
 
-enum OAuth2TokenType {
-  accessToken,
-  refreshToken,
-}
+enum OAuth2TokenType { accessToken, refreshToken }

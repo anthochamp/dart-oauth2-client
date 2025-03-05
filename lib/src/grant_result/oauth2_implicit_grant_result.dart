@@ -39,8 +39,10 @@ class OAuth2ImplicitGrantResult {
     JsonObject json, {
     required String scopesGlue,
   }) {
-    final tokenGrantResult =
-        OAuth2TokenGrantResult.fromJson(json, scopesGlue: scopesGlue);
+    final tokenGrantResult = OAuth2TokenGrantResult.fromJson(
+      json,
+      scopesGlue: scopesGlue,
+    );
 
     return OAuth2ImplicitGrantResult(
       accessToken: tokenGrantResult.accessToken,
@@ -50,14 +52,11 @@ class OAuth2ImplicitGrantResult {
     );
   }
 
-  JsonObject toJson({
-    required String scopesGlue,
-  }) =>
-      OAuth2TokenGrantResult(
-        accessToken: accessToken,
-        tokenType: tokenType,
-        expiresIn: expiresIn,
-        scopes: scopes,
-        customParameters: customParameters,
-      ).toJson(scopesGlue: scopesGlue);
+  JsonObject toJson({required String scopesGlue}) => OAuth2TokenGrantResult(
+    accessToken: accessToken,
+    tokenType: tokenType,
+    expiresIn: expiresIn,
+    scopes: scopes,
+    customParameters: customParameters,
+  ).toJson(scopesGlue: scopesGlue);
 }

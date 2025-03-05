@@ -10,7 +10,7 @@ import 'oauth2_typedefs.dart';
 part 'oauth2_client_credentials.freezed.dart';
 
 @freezed
-class OAuth2ClientCredentials with _$OAuth2ClientCredentials {
+sealed class OAuth2ClientCredentials with _$OAuth2ClientCredentials {
   const OAuth2ClientCredentials._();
 
   const factory OAuth2ClientCredentials.identifier({
@@ -26,24 +26,35 @@ class OAuth2ClientCredentials with _$OAuth2ClientCredentials {
   OAuth2Parameters composeParameters({
     required bool ignoreUnsecureCredentials,
   }) {
-    return map(
-      identifier: (identifier) => {
-        'client_id': identifier.identifier,
-        if (!ignoreUnsecureCredentials)
-          ...identifier.authentication?.map(
-                secret: (authenticationSecret) =>
-                    {'client_secret': authenticationSecret.secret},
-                password: (authenticationPassword) =>
-                    {'password': authenticationPassword.password},
-              ) ??
-              {},
-      },
-      username: (username) => ignoreUnsecureCredentials
-          ? {}
-          : {
-              'username': username.username,
-              'password': username.authenticationPassword.password,
+    return switch (this) {
+      OAuth2ClientCredentialsIdentifier(
+        :final identifier,
+        :final authentication,
+      ) =>
+        {
+          'client_id': identifier,
+          if (!ignoreUnsecureCredentials)
+            ...authentication != null
+                ? switch (authentication) {
+                  OAuth2ClientAuthenticationSecret(:final secret) => {
+                    'client_secret': secret,
+                  },
+                  OAuth2ClientAuthenticationPassword(:final password) => {
+                    'password': password,
+                  },
+                }
+                : {},
+        },
+      OAuth2ClientCredentialsUserPass(
+        :final username,
+        :final authenticationPassword,
+      ) =>
+        ignoreUnsecureCredentials
+            ? {}
+            : {
+              'username': username,
+              'password': authenticationPassword.password,
             },
-    );
+    };
   }
 }

@@ -35,23 +35,22 @@ class OAuth2Client {
     bool ignoreUnsecureCredentials = true,
     String responseTypesGlue = kDefaultResponseTypesGlue,
     String scopesGlue = kDefaultScopesGlue,
-  }) =>
-      _composeAuthorizationUrl(
-        authorizationEndpoint: authorizationEndpoint,
-        clientCredentialsIdentifier: clientCredentialsIdentifier,
-        state: state,
-        responseTypes: ['code'],
-        responseTypesGlue: responseTypesGlue,
-        redirectUri: redirectUri,
-        scopes: scopes,
-        scopesGlue: scopesGlue,
-        customParameters: customParameters,
-        ignoreUnsecureCredentials: ignoreUnsecureCredentials,
-      );
+  }) => _composeAuthorizationUrl(
+    authorizationEndpoint: authorizationEndpoint,
+    clientCredentialsIdentifier: clientCredentialsIdentifier,
+    state: state,
+    responseTypes: ['code'],
+    responseTypesGlue: responseTypesGlue,
+    redirectUri: redirectUri,
+    scopes: scopes,
+    scopesGlue: scopesGlue,
+    customParameters: customParameters,
+    ignoreUnsecureCredentials: ignoreUnsecureCredentials,
+  );
 
   // https://www.rfc-editor.org/rfc/rfc6749#section-4.1.1
   static OAuth2AuthorizationCodeGrantResult
-      parseAuthorizationCodeGrantRedirectionUri({
+  parseAuthorizationCodeGrantRedirectionUri({
     required Uri redirectionUri,
     required OAuth2State? state,
   }) {
@@ -73,20 +72,19 @@ class OAuth2Client {
     required Uri? originalRedirectUri,
     OAuth2Parameters customParameters = const {},
     String scopesGlue = kDefaultScopesGlue,
-  }) =>
-      _tokenRequest(
-        requestHandler: requestHandler,
-        tokenEndpoint: tokenEndpoint,
-        clientCredentials: clientCredentials,
-        grantType: 'authorization_code',
-        parameters: {
-          ...customParameters,
-          'code': authorizationCode,
-          if (originalRedirectUri != null)
-            'redirect_uri': originalRedirectUri.toString(),
-        },
-        scopesGlue: scopesGlue,
-      );
+  }) => _tokenRequest(
+    requestHandler: requestHandler,
+    tokenEndpoint: tokenEndpoint,
+    clientCredentials: clientCredentials,
+    grantType: 'authorization_code',
+    parameters: {
+      ...customParameters,
+      'code': authorizationCode,
+      if (originalRedirectUri != null)
+        'redirect_uri': originalRedirectUri.toString(),
+    },
+    scopesGlue: scopesGlue,
+  );
 
   // https://www.rfc-editor.org/rfc/rfc6749#section-4.2.1
   static Uri composeImplicitGrantUrl({
@@ -99,19 +97,18 @@ class OAuth2Client {
     bool ignoreUnsecureCredentials = true,
     String responseTypesGlue = kDefaultResponseTypesGlue,
     String scopesGlue = kDefaultScopesGlue,
-  }) =>
-      _composeAuthorizationUrl(
-        authorizationEndpoint: authorizationEndpoint,
-        clientCredentialsIdentifier: clientCredentialsIdentifier,
-        state: state,
-        responseTypes: ['token'],
-        responseTypesGlue: responseTypesGlue,
-        redirectUri: redirectUri,
-        scopes: scopes,
-        scopesGlue: scopesGlue,
-        customParameters: customParameters,
-        ignoreUnsecureCredentials: ignoreUnsecureCredentials,
-      );
+  }) => _composeAuthorizationUrl(
+    authorizationEndpoint: authorizationEndpoint,
+    clientCredentialsIdentifier: clientCredentialsIdentifier,
+    state: state,
+    responseTypes: ['token'],
+    responseTypesGlue: responseTypesGlue,
+    redirectUri: redirectUri,
+    scopes: scopes,
+    scopesGlue: scopesGlue,
+    customParameters: customParameters,
+    ignoreUnsecureCredentials: ignoreUnsecureCredentials,
+  );
 
   static OAuth2ImplicitGrantResult parseImplicitGrantRedirectionUri({
     required Uri redirectionUri,
@@ -123,10 +120,7 @@ class OAuth2Client {
       state: state,
     );
 
-    return OAuth2ImplicitGrantResult.fromJson(
-      result,
-      scopesGlue: scopesGlue,
-    );
+    return OAuth2ImplicitGrantResult.fromJson(result, scopesGlue: scopesGlue);
   }
 
   // https://www.rfc-editor.org/rfc/rfc6749#section-4.3
@@ -137,18 +131,17 @@ class OAuth2Client {
     Iterable<OAuth2Scope>? scopes,
     String scopesGlue = kDefaultScopesGlue,
     OAuth2Parameters customParameters = const {},
-  }) =>
-      _tokenRequest(
-        requestHandler: requestHandler,
-        tokenEndpoint: tokenEndpoint,
-        clientCredentials: clientCredentialsUserPass,
-        grantType: 'password',
-        parameters: {
-          ...customParameters,
-          if (scopes != null) 'scope': scopes.join(scopesGlue),
-        },
-        scopesGlue: scopesGlue,
-      );
+  }) => _tokenRequest(
+    requestHandler: requestHandler,
+    tokenEndpoint: tokenEndpoint,
+    clientCredentials: clientCredentialsUserPass,
+    grantType: 'password',
+    parameters: {
+      ...customParameters,
+      if (scopes != null) 'scope': scopes.join(scopesGlue),
+    },
+    scopesGlue: scopesGlue,
+  );
 
   // https://www.rfc-editor.org/rfc/rfc6749#section-4.4
   static Future<OAuth2TokenGrantResult> clientCredentialsGrant({
@@ -158,18 +151,17 @@ class OAuth2Client {
     Iterable<OAuth2Scope>? scopes,
     String scopesGlue = kDefaultScopesGlue,
     OAuth2Parameters customParameters = const {},
-  }) =>
-      _tokenRequest(
-        requestHandler: requestHandler,
-        tokenEndpoint: tokenEndpoint,
-        clientCredentials: clientCredentials,
-        grantType: 'client_credentials',
-        parameters: {
-          ...customParameters,
-          if (scopes != null) 'scope': scopes.join(scopesGlue),
-        },
-        scopesGlue: scopesGlue,
-      );
+  }) => _tokenRequest(
+    requestHandler: requestHandler,
+    tokenEndpoint: tokenEndpoint,
+    clientCredentials: clientCredentials,
+    grantType: 'client_credentials',
+    parameters: {
+      ...customParameters,
+      if (scopes != null) 'scope': scopes.join(scopesGlue),
+    },
+    scopesGlue: scopesGlue,
+  );
 
   // https://www.rfc-editor.org/rfc/rfc6749#section-4.5
   static Future<OAuth2TokenGrantResult> extensionGrant({
@@ -179,15 +171,14 @@ class OAuth2Client {
     required Uri grantType,
     OAuth2Parameters customParameters = const {},
     String scopesGlue = kDefaultScopesGlue,
-  }) =>
-      _tokenRequest(
-        requestHandler: requestHandler,
-        tokenEndpoint: tokenEndpoint,
-        clientCredentials: clientCredentials,
-        grantType: grantType.toString(),
-        parameters: customParameters,
-        scopesGlue: scopesGlue,
-      );
+  }) => _tokenRequest(
+    requestHandler: requestHandler,
+    tokenEndpoint: tokenEndpoint,
+    clientCredentials: clientCredentials,
+    grantType: grantType.toString(),
+    parameters: customParameters,
+    scopesGlue: scopesGlue,
+  );
 
   // https://www.rfc-editor.org/rfc/rfc6749#section-6
   static Future<OAuth2TokenGrantResult> refreshToken({
@@ -198,19 +189,18 @@ class OAuth2Client {
     Iterable<OAuth2Scope>? scopes,
     String scopesGlue = kDefaultScopesGlue,
     OAuth2Parameters customParameters = const {},
-  }) =>
-      _tokenRequest(
-        requestHandler: requestHandler,
-        tokenEndpoint: tokenEndpoint,
-        clientCredentials: clientCredentials,
-        grantType: 'refresh_token',
-        parameters: {
-          ...customParameters,
-          'refresh_token': refreshToken,
-          if (scopes != null) 'scope': scopes.join(scopesGlue),
-        },
-        scopesGlue: scopesGlue,
-      );
+  }) => _tokenRequest(
+    requestHandler: requestHandler,
+    tokenEndpoint: tokenEndpoint,
+    clientCredentials: clientCredentials,
+    grantType: 'refresh_token',
+    parameters: {
+      ...customParameters,
+      'refresh_token': refreshToken,
+      if (scopes != null) 'scope': scopes.join(scopesGlue),
+    },
+    scopesGlue: scopesGlue,
+  );
 
   // https://www.rfc-editor.org/rfc/rfc7009
   static Future<void> revokeToken({
@@ -229,9 +219,10 @@ class OAuth2Client {
         ...customParameters,
         'token': token,
         if (tokenTypeHint != null)
-          'token_type_hint': tokenTypeHint == OAuth2TokenType.accessToken
-              ? 'access_token'
-              : 'refresh_token',
+          'token_type_hint':
+              tokenTypeHint == OAuth2TokenType.accessToken
+                  ? 'access_token'
+                  : 'refresh_token',
       },
     );
   }
@@ -248,10 +239,7 @@ class OAuth2Client {
       requestHandler: requestHandler,
       requestEndpoint: tokenEndpoint,
       clientCredentials: clientCredentials,
-      parameters: {
-        ...parameters,
-        'grant_type': grantType,
-      },
+      parameters: {...parameters, 'grant_type': grantType},
     );
 
     if (response.formData == null) {
@@ -281,8 +269,9 @@ class OAuth2Client {
     if (clientCredentials is OAuth2ClientCredentialsIdentifier) {
       if (clientCredentials.authentication
           is OAuth2ClientAuthenticationPassword) {
-        final encodedClientId =
-            Uri.encodeComponent(clientCredentials.identifier);
+        final encodedClientId = Uri.encodeComponent(
+          clientCredentials.identifier,
+        );
         final encodedPassword = Uri.encodeComponent(
           (clientCredentials.authentication
                   as OAuth2ClientAuthenticationPassword)
@@ -294,17 +283,13 @@ class OAuth2Client {
       }
     }
 
-    final response = await requestHandler.post(
-      requestEndpoint,
-      httpHeaders,
-      {
-        ...clientCredentials?.composeParameters(
-              ignoreUnsecureCredentials: false,
-            ) ??
-            {},
-        ...parameters,
-      },
-    );
+    final response = await requestHandler.post(requestEndpoint, httpHeaders, {
+      ...clientCredentials?.composeParameters(
+            ignoreUnsecureCredentials: false,
+          ) ??
+          {},
+      ...parameters,
+    });
 
     // ignore: no-magic-number
     if (response.status < 200 || response.status >= 300) {
@@ -342,28 +327,27 @@ class OAuth2Client {
     required String scopesGlue,
     required OAuth2Parameters customParameters,
     required bool ignoreUnsecureCredentials,
-  }) =>
-      authorizationEndpoint.replace(
-        queryParameters: <String, String?>{
-          ...authorizationEndpoint.queryParameters,
-          ...customParameters,
-          ...clientCredentialsIdentifier.composeParameters(
-            ignoreUnsecureCredentials: ignoreUnsecureCredentials,
-          ),
-          'response_type': responseTypes.join(responseTypesGlue),
-          if (redirectUri != null) 'redirect_uri': redirectUri.toString(),
-          if (scopes != null) 'scope': scopes.join(scopesGlue),
-          if (state != null) 'state': state.value,
-        },
-      );
+  }) => authorizationEndpoint.replace(
+    queryParameters: <String, String?>{
+      ...authorizationEndpoint.queryParameters,
+      ...customParameters,
+      ...clientCredentialsIdentifier.composeParameters(
+        ignoreUnsecureCredentials: ignoreUnsecureCredentials,
+      ),
+      'response_type': responseTypes.join(responseTypesGlue),
+      if (redirectUri != null) 'redirect_uri': redirectUri.toString(),
+      if (scopes != null) 'scope': scopes.join(scopesGlue),
+      if (state != null) 'state': state.value,
+    },
+  );
 
   // https://www.rfc-editor.org/rfc/rfc6749#section-4.2.2
   static OAuth2Parameters _parseAuthorizationRedirectionUri({
     required Uri redirectionUri,
     required OAuth2State? state,
   }) {
-    final OAuth2Parameters parameters = {}
-      ..addAll(redirectionUri.queryParameters);
+    final OAuth2Parameters parameters =
+        {}..addAll(redirectionUri.queryParameters);
 
     final receivedState = parameters.remove('state');
     if (receivedState != state?.value) {

@@ -33,8 +33,5 @@ class OAuth2AuthorizationCodeGrantResult {
     );
   }
 
-  JsonObject toJson() => {
-        ...customParameters,
-        'code': code,
-      };
+  JsonObject toJson() => {...customParameters, 'code': code};
 }
