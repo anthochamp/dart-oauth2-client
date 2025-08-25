@@ -36,13 +36,13 @@ sealed class OAuth2ClientCredentials with _$OAuth2ClientCredentials {
           if (!ignoreUnsecureCredentials)
             ...authentication != null
                 ? switch (authentication) {
-                  OAuth2ClientAuthenticationSecret(:final secret) => {
-                    'client_secret': secret,
-                  },
-                  OAuth2ClientAuthenticationPassword(:final password) => {
-                    'password': password,
-                  },
-                }
+                    OAuth2ClientAuthenticationSecret(:final secret) => {
+                      'client_secret': secret,
+                    },
+                    OAuth2ClientAuthenticationPassword(:final password) => {
+                      'password': password,
+                    },
+                  }
                 : {},
         },
       OAuth2ClientCredentialsUserPass(
@@ -52,9 +52,9 @@ sealed class OAuth2ClientCredentials with _$OAuth2ClientCredentials {
         ignoreUnsecureCredentials
             ? {}
             : {
-              'username': username,
-              'password': authenticationPassword.password,
-            },
+                'username': username,
+                'password': authenticationPassword.password,
+              },
     };
   }
 }

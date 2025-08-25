@@ -219,10 +219,9 @@ class OAuth2Client {
         ...customParameters,
         'token': token,
         if (tokenTypeHint != null)
-          'token_type_hint':
-              tokenTypeHint == OAuth2TokenType.accessToken
-                  ? 'access_token'
-                  : 'refresh_token',
+          'token_type_hint': tokenTypeHint == OAuth2TokenType.accessToken
+              ? 'access_token'
+              : 'refresh_token',
       },
     );
   }
@@ -346,8 +345,8 @@ class OAuth2Client {
     required Uri redirectionUri,
     required OAuth2State? state,
   }) {
-    final OAuth2Parameters parameters =
-        {}..addAll(redirectionUri.queryParameters);
+    final OAuth2Parameters parameters = {}
+      ..addAll(redirectionUri.queryParameters);
 
     final receivedState = parameters.remove('state');
     if (receivedState != state?.value) {

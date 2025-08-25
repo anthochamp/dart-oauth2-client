@@ -62,10 +62,9 @@ class OAuth2TokenGrantResult {
     Duration? expiresIn;
     if (expiresInValue != null) {
       expiresIn = Duration(
-        seconds:
-            expiresInValue is String
-                ? int.parse(expiresInValue)
-                : expiresInValue,
+        seconds: expiresInValue is String
+            ? int.parse(expiresInValue)
+            : expiresInValue,
       );
     }
     final Iterable<OAuth2Scope>? scopes = customParameters
