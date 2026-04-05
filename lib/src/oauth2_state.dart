@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: © 2023 - 2024 Anthony Champagne <dev@anthonychampagne.fr>
+// SPDX-FileCopyrightText: © 2023 - 2026 Anthony Champagne <dev@anthonychampagne.fr>
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
@@ -16,6 +16,13 @@ class OAuth2State {
 
   const OAuth2State(this.value);
 
+  /// Generates a cryptographically secure random state value.
+  ///
+  /// The state parameter is used as a CSRF protection token per RFC 6749 §10.12.
+  /// A cryptographically secure PRNG ([Random.secure]) is always used to prevent
+  /// an attacker from forging state values and bypassing CSRF protection.
+  ///
+  /// [random] may be supplied in tests to override the source of randomness.
   factory OAuth2State.random({
     Random? random,
     String allowedChars = kDefaultRandomStateAllowedChars,
@@ -26,9 +33,9 @@ class OAuth2State {
     assert(maxLength > 0);
     assert(minLength <= maxLength);
 
-    final random_ = random ?? Random();
+    final random_ = random ?? Random.secure();
 
-    final randomLength = minLength + random_.nextInt(maxLength - minLength);
+    final randomLength = minLength + random_.nextInt(maxLength - minLength + 1);
 
     final randomCodePoints = Iterable.generate(randomLength, (_) {
       final index = random_.nextInt(allowedChars.length);

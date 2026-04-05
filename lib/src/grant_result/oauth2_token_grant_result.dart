@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: © 2023 - 2024 Anthony Champagne <dev@anthonychampagne.fr>
+// SPDX-FileCopyrightText: © 2023 - 2026 Anthony Champagne <dev@anthonychampagne.fr>
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
@@ -61,11 +61,16 @@ class OAuth2TokenGrantResult {
     final dynamic expiresInValue = customParameters.remove('expires_in');
     Duration? expiresIn;
     if (expiresInValue != null) {
-      expiresIn = Duration(
-        seconds: expiresInValue is String
-            ? int.parse(expiresInValue)
-            : expiresInValue,
-      );
+      final int seconds;
+      if (expiresInValue is String) {
+        seconds = int.parse(expiresInValue);
+      } else if (expiresInValue is double) {
+        // Some servers serialize integers as JSON floats (e.g. 3600.0).
+        seconds = expiresInValue.toInt();
+      } else {
+        seconds = expiresInValue as int;
+      }
+      expiresIn = Duration(seconds: seconds);
     }
     final Iterable<OAuth2Scope>? scopes = customParameters
         .remove('scope')
