@@ -20,16 +20,16 @@ class OAuth2AuthorizationCodeGrantResult {
   });
 
   factory OAuth2AuthorizationCodeGrantResult.fromJson(JsonObject json) {
-    OAuth2Parameters customParameters = {}..addAll(json);
+    final JsonObject rawParams = {...json};
 
-    final String? code = customParameters.remove('code');
+    final String? code = rawParams.remove('code') as String?;
     if (code == null) {
       throw OAuth2InvalidDataException('Missing "code" field', json);
     }
 
     return OAuth2AuthorizationCodeGrantResult(
       code: code,
-      customParameters: customParameters,
+      customParameters: rawParams.cast<String, String>(),
     );
   }
 
