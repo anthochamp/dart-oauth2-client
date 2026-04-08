@@ -46,10 +46,10 @@ class OAuth2TokenGrantResult {
     JsonObject json, {
     required String scopesGlue,
   }) {
-    OAuth2Parameters customParameters = {}..addAll(json);
+    final JsonObject rawParams = {...json};
 
-    final String? accessToken = customParameters.remove('access_token');
-    final String? tokenType = customParameters.remove('token_type');
+    final String? accessToken = rawParams.remove('access_token') as String?;
+    final String? tokenType = rawParams.remove('token_type') as String?;
     if (accessToken == null || tokenType == null) {
       throw OAuth2InvalidDataException(
         'Missing one or both "access_token" "token_type" fields',
@@ -57,8 +57,8 @@ class OAuth2TokenGrantResult {
       );
     }
 
-    final String? refreshToken = customParameters.remove('refresh_token');
-    final dynamic expiresInValue = customParameters.remove('expires_in');
+    final String? refreshToken = rawParams.remove('refresh_token') as String?;
+    final dynamic expiresInValue = rawParams.remove('expires_in');
     Duration? expiresIn;
     if (expiresInValue != null) {
       final int seconds;
@@ -72,8 +72,7 @@ class OAuth2TokenGrantResult {
       }
       expiresIn = Duration(seconds: seconds);
     }
-    final Iterable<OAuth2Scope>? scopes = customParameters
-        .remove('scope')
+    final Iterable<OAuth2Scope>? scopes = (rawParams.remove('scope') as String?)
         ?.split(scopesGlue);
 
     return OAuth2TokenGrantResult(
@@ -82,7 +81,7 @@ class OAuth2TokenGrantResult {
       refreshToken: refreshToken,
       expiresIn: expiresIn,
       scopes: scopes,
-      customParameters: customParameters,
+      customParameters: rawParams.cast<String, String>(),
     );
   }
 
